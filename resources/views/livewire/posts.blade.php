@@ -2,11 +2,6 @@
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
     Open Form
     </button>
-    @if (session()->has('message'))
-    <div class="alert alert-success" style="margin-top:30px;">x
-       {{ session('message') }}
-    </div>
-    @endif
     <table class="table table-bordered mt-5">
        <thead>
           <tr>
@@ -94,4 +89,23 @@
           </div>
        </div>
     </div>
+
+    @if (session()->has('message'))
+        <script>
+            $(function(){
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000
+                });
+
+                Toast.fire({
+                    type: 'success',
+                    icon: "success",
+                    title: '{{ session("message") }}'
+                });
+            });
+        </script>
+    @endif
  </div>

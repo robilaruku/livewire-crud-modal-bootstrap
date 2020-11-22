@@ -41,6 +41,7 @@ class Posts extends Component
         $this->resetInputFields();
 
         $this->emit('postStore');
+        $this->emit('message');
 
     }
 
@@ -80,6 +81,7 @@ class Posts extends Component
         $this->updateMode = false;
         session()->flash('message', 'Posts Updated Successfully.');
         $this->resetInputFields();
+        $this->emit('message');
     }
 
 
@@ -87,7 +89,7 @@ class Posts extends Component
     {
         if($id){
             Post::where('id',$id)->delete();
-            session()->flash('message', 'Posts Deleted Successfully.');
+            session()->flash('message', 'Post Deleted Successfully.');
         }
     }
 }
