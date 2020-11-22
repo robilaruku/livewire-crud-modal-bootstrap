@@ -84,12 +84,26 @@ class Posts extends Component
         $this->emit('message');
     }
 
+    public function show($id)
+    {
+        $this->updatedMode = true;
+        
+        $post = Post::findOrFail($id);
+
+        $this->postId = $post->id;
+        $this->title = $post->title;
+        $this->content = $post->content;
+    }
+
 
     public function delete($id)
     {
         if($id){
             Post::where('id',$id)->delete();
-            session()->flash('message', 'Post Deleted Successfully.');
+            $this->updateMode = false;
+            session()->flash('message', 'Posts Deleted Successfully.');
+            $this->resetInputFields();
+            $this->emit('deletePost');
         }
     }
 }

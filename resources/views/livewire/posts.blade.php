@@ -19,7 +19,7 @@
              <td>{{ $value->content }}</td>
              <td>
                 <button data-toggle="modal" data-target="#updateModal" wire:click="edit({{ $value->id }})" class="btn btn-primary btn-sm">Edit</button>
-                <button wire:click="delete({{ $value->id }})" class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#deleteModal" wire:click="show({{ $value->id }})">Delete</button>
              </td>
           </tr>
           @endforeach
@@ -31,7 +31,7 @@
        <div class="modal-dialog" role="document">
           <div class="modal-content">
              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Tambah Post</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true close-btn">×</span>
                 </button>
@@ -51,8 +51,8 @@
                 </form>
              </div>
              <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal">Save changes</button>
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary float-left" data-dismiss="modal"><i class="fa fa-arrow-up"></i> Close</button>
+                <button type="button" wire:click.prevent="store()" class="btn btn-primary close-modal"><i class="fa fa-save"></i> Save Data</button>
              </div>
           </div>
        </div>
@@ -62,7 +62,7 @@
        <div class="modal-dialog" role="document">
           <div class="modal-content">
              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Edit Post</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
                 </button>
@@ -70,7 +70,6 @@
              <div class="modal-body">
                 <form>
                    <div class="form-group">
-                      <input type="hidden" wire:model="user_id">
                       <label for="exampleFormControlInput1">Title</label>
                       <input type="text" class="form-control" wire:model="title" id="exampleFormControlInput1" placeholder="Enter Title">
                       @error('title') <span class="text-danger">{{ $message }}</span>@enderror
@@ -83,8 +82,31 @@
                 </form>
              </div>
              <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-arrow-up"></i> Close</button>
+                <button type="button" wire:click.prevent="update()" class="btn btn-info" data-dismiss="modal"><i class="fa fa-edit"></i> Update Data</button>
+             </div>
+          </div>
+       </div>
+    </div>
+
+    <!-- Modal -->
+    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-trash"></i> Delete Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true close-btn">×</span>
+                </button>
+             </div>
+             <div class="modal-body">
+              <div class="alert alert-danger" role="alert">
+                 <p>Yakin mau hapus : <b>{{ $title }}</b> ?</p> 
+              </div>
+             </div>
+             <div class="modal-footer">
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-arrow-up"></i> Close</button>
+                <button type="button" wire:click.prevent="delete({{ $postId }})" class="btn btn-danger close-modal"><i class="fa fa-trash"></i> Delete Data</button>
              </div>
           </div>
        </div>
